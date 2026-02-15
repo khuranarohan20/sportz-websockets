@@ -1,4 +1,5 @@
-import express from 'express';
+import express from "express";
+import { matchesRouter } from "./routes/matches.js";
 
 const app = express();
 const PORT = 8000;
@@ -7,9 +8,11 @@ const PORT = 8000;
 app.use(express.json());
 
 // Root GET route
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the Sports API!' });
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the Sports API!" });
 });
+
+app.use("/matches", matchesRouter);
 
 // Start server
 app.listen(PORT, () => {
