@@ -1,7 +1,8 @@
-import "./config/env.js"; // Must be imported first to load env vars
 import express from "express";
 import http from "http";
 import { securityMiddleware } from "./config/arcjet.js";
+import "./config/env.js"; // Must be imported first to load env vars
+import { commentaryRouter } from "./routes/commentary.js";
 import { matchesRouter } from "./routes/matches.js";
 import { attachWebSocketServer } from "./ws/server.js";
 
@@ -20,9 +21,13 @@ app.get("/", (req, res) => {
 app.use(securityMiddleware());
 
 app.use("/matches", matchesRouter);
+app.use("/matches/:id/commentary", commentaryRouter);
 
-const { broadcastMatchCreated } = attachWebSocketServer(server);
+const { broadcastMatchCreated, broadcastCommentary } =
+  attachWebSocketServer(server);
+
 app.locals.broadcastMatchCreated = broadcastMatchCreated;
+app.locals.broadcastCommentary = broadcastCommentary;
 
 server.listen(PORT, HOST, () => {
   const baseUrl =
