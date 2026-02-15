@@ -1,10 +1,10 @@
 import express, { type Application } from "express";
 import http, { type Server } from "http";
-import { securityMiddleware } from "./config/arcjet.js";
-import "./config/env.js"; // Must be imported first to load env vars
-import { commentaryRouter } from "./routes/commentary.js";
-import { matchesRouter } from "./routes/matches.js";
-import { attachWebSocketServer } from "./ws/server.js";
+import { securityMiddleware } from "./config/arcjet.ts";
+import "./config/env.ts"; // Must be imported first to load env vars
+import { commentaryRouter } from "./routes/commentary.ts";
+import { matchesRouter } from "./routes/matches.ts";
+import { attachWebSocketServer } from "./ws/server.ts";
 
 const PORT: number = Number(process.env.PORT || 8000);
 const HOST: string = process.env.HOST || "0.0.0.0";
