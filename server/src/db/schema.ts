@@ -60,3 +60,11 @@ export const commentary = pgTable(
     index("commentary_match_sequence_idx").on(table.matchId, table.minute, table.sequence),
   ]
 );
+
+// Type inference for matches table
+export type Match = typeof matches.$inferSelect;
+export type NewMatch = typeof matches.$inferInsert;
+
+// Type inference for commentary table
+export type Commentary = typeof commentary.$inferSelect;
+export type NewCommentary = typeof commentary.$inferInsert;
