@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01: Configure TypeScript compiler, tsconfig, and build tooling
-- [ ] 01-02: Setup type definitions for dependencies and project structure
+- [x] 01-02: Setup type definitions for dependencies and project structure
 - [ ] 01-03: Configure development workflow (watch mode, type checking, linting)
 
 ### Phase 2: Database & Schema Types
@@ -113,7 +113,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. TypeScript Foundation | 1/3 | In progress | 2026-02-15 |
+| 1. TypeScript Foundation | 2/3 | In progress | 2026-02-15 |
 | 2. Database & Schema Types | 0/3 | Not started | - |
 | 3. Core Application Types | 0/3 | Not started | - |
 | 4. API Routes & Middleware | 0/4 | Not started | - |
