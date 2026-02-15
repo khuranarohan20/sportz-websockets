@@ -12,7 +12,7 @@ function subscribe(matchId, socket) {
   matchSubscribers.get(matchId).add(socket);
 }
 
-function unsusbcribe(matchId, socket) {
+function unsubscribe(matchId, socket) {
   const subscribers = matchSubscribers.get(matchId);
 
   if (!subscribers) return;
@@ -26,11 +26,11 @@ function unsusbcribe(matchId, socket) {
 
 function cleanupSubscriptions(socket) {
   for (const matchId of socket.subscriptions) {
-    unsusbcribe(matchId, socket);
+    unsubscribe(matchId, socket);
   }
 }
 
-function broadcaseToMatch(matchId, payload) {
+function broadcastToMatch(matchId, payload) {
   const subscribers = matchSubscribers.get(matchId);
 
   if (!subscribers || subscribers.size === 0) return;
@@ -62,6 +62,7 @@ function handleMessage(socket, data) {
     message = JSON.parse(data.toString());
   } catch (error) {
     sendJson(socket, { type: "error", message: "Invalid JSON" });
+    return;
   }
 
   if (message?.type === "subscribe" && Number.isInteger(message?.matchId)) {
@@ -72,7 +73,7 @@ function handleMessage(socket, data) {
   }
 
   if (message?.type === "unsubscribe" && Number.isInteger(message?.matchId)) {
-    unsusbcribe(message.matchId, socket);
+    unsubscribe(message.matchId, socket);
     socket.subscriptions.delete(message.matchId);
     sendJson(socket, { type: "unsubscribed", matchId: message.matchId });
     return;
@@ -148,7 +149,7 @@ export function attachWebSocketServer(server) {
   }
 
   function broadcastCommentary(matchId, comment) {
-    broadcaseToMatch(matchId, { type: "commentary", data: comment });
+    broadcastToMatch(matchId, { type: "commentary", data: comment });
   }
 
   return { broadcastMatchCreated, broadcastCommentary };

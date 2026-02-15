@@ -83,11 +83,6 @@ commentaryRouter.post("/", async (req, res) => {
       })
       .returning();
 
-    console.log(
-      "------Here-----",
-      commentaryEntry,
-      res.app.locals.broadcastCommentary,
-    );
     try {
       res.app.locals.broadcastCommentary?.(
         commentaryEntry.matchId,
