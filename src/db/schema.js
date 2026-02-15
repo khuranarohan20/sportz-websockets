@@ -5,6 +5,7 @@ import {
   pgTable,
   text,
   timestamp,
+  index,
 } from "drizzle-orm/pg-core";
 
 // Match status enum: scheduled, live, finished
@@ -28,24 +29,34 @@ export const matches = pgTable("matches", {
   createdAt: timestamp("created_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
-});
-
-// Commentary table
-export const commentary = pgTable("commentary", {
-  id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
-  matchId: integer("match_id")
-    .notNull()
-    .references(() => matches.id, { onDelete: "cascade" }),
-  minute: integer("minute").notNull(),
-  sequence: integer("sequence").notNull(),
-  period: text("period").notNull(),
-  eventType: text("event_type").notNull(),
-  actor: text("actor"),
-  team: text("team"),
-  message: text("message").notNull(),
-  metadata: jsonb("metadata"),
-  tags: text("tags"),
-  createdAt: timestamp("created_at", { withTimezone: true })
+  updatedAt: timestamp("updated_at", { withTimezone: true })
     .notNull()
     .defaultNow(),
 });
+
+// Commentary table
+export const commentary = pgTable(
+  "commentary",
+  {
+    id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
+    matchId: integer("match_id")
+      .notNull()
+      .references(() => matches.id, { onDelete: "cascade" }),
+    minute: integer("minute").notNull(),
+    sequence: integer("sequence").notNull(),
+    period: text("period").notNull(),
+    eventType: text("event_type").notNull(),
+    actor: text("actor"),
+    team: text("team"),
+    message: text("message").notNull(),
+    metadata: jsonb("metadata"),
+    tags: text("tags").array(),
+    createdAt: timestamp("created_at", { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (table) => [
+    index("commentary_match_id_idx").on(table.matchId),
+    index("commentary_match_sequence_idx").on(table.matchId, table.minute, table.sequence),
+  ]
+);
