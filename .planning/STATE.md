@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2025-02-15)
 ## Current Position
 
 Phase: 2 of 7 (Database & Schema Types)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-02-16 — Completed 02-01-PLAN.md
+Last activity: 2026-02-16 — Completed 02-02-PLAN.md
 
-Progress: ████████░░ 38%
+Progress: ██████████ 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 1 min
-- Total execution time: 0.07 hours
+- Total execution time: 0.08 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-typescript-foundation | 3 | 1 min | 1 min |
-| 02-database-schema-types | 1 | 1 min | 1 min |
+| 02-database-schema-types | 2 | 1 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min (01-01), 0 min (01-02), 0 min (01-03), 1 min (02-01)
+- Last 5 plans: 0 min (01-02), 0 min (01-03), 1 min (02-01), 1 min (02-02)
 - Trend: Stable (all plans completed quickly)
 
 *Updated after each plan completion*
@@ -56,6 +56,8 @@ Recent decisions affecting current work:
 | 1 | Continuous type checking with tsc --watch | Instant type error feedback during development |
 | 2 | Use Drizzle ORM's automatic type inference | Leverages TypeScript-native ORM for zero-effort type safety |
 | 2 | Export inferred types from schema | Provides Match, NewMatch, Commentary, NewCommentary types for use in routes |
+| 2 | Single type import point from db.ts | Simplifies imports by re-exporting all schema types from database client |
+| 2 | Use drizzle() without explicit generic | Pool type constraint error when using drizzle<Pool>(pool), inference works identically |
 
 ### Deferred Issues
 
@@ -72,5 +74,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 02-01-PLAN.md (Database Schema Conversion) - Ready for 02-02-PLAN.md
+Stopped at: Completed 02-02-PLAN.md (Database Client Typing) - Ready for 02-03-PLAN.md
 Resume file: None
