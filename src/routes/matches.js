@@ -1,4 +1,4 @@
-import { desc } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { Router } from "express";
 import { MAX_MATCH_QUERY_LIMIT } from "../constants/match.js";
 import { db } from "../db/db.js";
@@ -81,7 +81,7 @@ matchesRouter.post("/", async (req, res) => {
   }
 });
 
-matchRouter.patch("/:id/score", async (req, res) => {
+matchesRouter.patch("/:id/score", async (req, res) => {
   const matchId = Number(req.params.id);
 
   if (!Number.isInteger(matchId)) {
