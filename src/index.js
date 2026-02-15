@@ -1,5 +1,7 @@
+import "./config/env.js"; // Must be imported first to load env vars
 import express from "express";
 import http from "http";
+import { securityMiddleware } from "./config/arcjet.js";
 import { matchesRouter } from "./routes/matches.js";
 import { attachWebSocketServer } from "./ws/server.js";
 
@@ -14,6 +16,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the Sports API!" });
 });
+
+app.use(securityMiddleware());
 
 app.use("/matches", matchesRouter);
 
