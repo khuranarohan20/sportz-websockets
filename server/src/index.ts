@@ -26,8 +26,9 @@ app.use("/matches/:id/commentary", commentaryRouter);
 const { broadcastMatchCreated, broadcastCommentary } =
   attachWebSocketServer(server);
 
-app.locals.broadcastMatchCreated = broadcastMatchCreated;
-app.locals.broadcastCommentary = broadcastCommentary;
+// TODO: Type these properly after Phase 4 when routes are converted to TypeScript
+app.locals.broadcastMatchCreated = broadcastMatchCreated as (matchData: any) => void;
+app.locals.broadcastCommentary = broadcastCommentary as (commentaryData: any) => void;
 
 server.listen(PORT, HOST, () => {
   const baseUrl =
