@@ -11,3 +11,6 @@ export const pool = new Pool({
 });
 
 export const db = drizzle(pool);
+
+// Re-export schema types for convenient imports in routes
+export type { Match, NewMatch, Commentary, NewCommentary } from './schema.js';
