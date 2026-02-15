@@ -14,3 +14,8 @@ export const db = drizzle(pool);
 
 // Re-export schema types for convenient imports in routes
 export type { Match, NewMatch, Commentary, NewCommentary } from './schema.js';
+
+// Type inference examples:
+// const allMatches: Match[] = await db.select().from(matches);
+// const newMatch: NewMatch = { sport: 'basketball', homeTeam: 'Lakers', awayTeam: 'Warriors', startTime: new Date() };
+// await db.insert(matches).values(newMatch);
