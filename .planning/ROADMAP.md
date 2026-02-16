@@ -64,13 +64,12 @@ Plans:
 **Goal**: Convert all route handlers, validation schemas, and middleware to TypeScript
 **Depends on**: Phase 3
 **Research**: Unlikely (following established Express TypeScript patterns)
-**Plans**: 4 plans
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: Convert match routes to TypeScript
-- [ ] 04-02: Convert commentary routes to TypeScript
-- [ ] 04-03: Convert Zod validation schemas to TypeScript
-- [ ] 04-04: Convert Arcjet security middleware to TypeScript
+- [x] 04-01: Convert Zod validation schemas to TypeScript
+- [ ] 04-02: Convert match routes to TypeScript
+- [ ] 04-03: Convert commentary routes to TypeScript
 
 ### Phase 5: WebSocket & Real-time
 **Goal**: Convert WebSocket server and real-time pub/sub system to TypeScript
