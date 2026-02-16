@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: TypeScript Foundation** - Setup TypeScript tooling, build pipeline, and type definitions
 - [x] **Phase 2: Database & Schema Types** - Convert Drizzle ORM schemas and database layer to TypeScript
 - [x] **Phase 3: Core Application Types** - Convert Express app setup, configuration, and utilities to TypeScript
-- [ ] **Phase 4: API Routes & Middleware** - Convert route handlers, validation, and middleware to TypeScript
+- [x] **Phase 4: API Routes & Middleware** - Convert route handlers, validation, and middleware to TypeScript
 - [ ] **Phase 5: WebSocket & Real-time** - Convert WebSocket server and pub/sub system to TypeScript
 - [ ] **Phase 6: Performance Profiling** - Establish performance baselines and identify optimization opportunities
 - [ ] **Phase 7: Performance Optimization** - Implement targeted improvements and validate with benchmarks
@@ -69,7 +69,9 @@ Plans:
 Plans:
 - [x] 04-01: Convert Zod validation schemas to TypeScript
 - [x] 04-02: Convert match routes to TypeScript
-- [ ] 04-03: Convert commentary routes to TypeScript
+- [x] 04-03: Convert commentary routes to TypeScript
+
+**Status**: Complete (2026-02-16)
 
 ### Phase 5: WebSocket & Real-time
 **Goal**: Convert WebSocket server and real-time pub/sub system to TypeScript
