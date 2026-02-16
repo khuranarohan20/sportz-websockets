@@ -1,9 +1,9 @@
 import { desc, eq } from "drizzle-orm";
 import { Router } from "express";
-import { MAX_MATCH_QUERY_LIMIT } from "../constants/match.js";
+import { MAX_MATCH_QUERY_LIMIT } from "../constants/match.ts";
 import { db } from "../db/db.js";
 import { matches } from "../db/schema.js";
-import { getMatchStatus } from "../utils/match-status.js";
+import { getMatchStatus } from "../utils/match-status.ts";
 import {
   createMatchSchema,
   listMatchesQuerySchema,

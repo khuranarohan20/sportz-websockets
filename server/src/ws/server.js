@@ -1,6 +1,6 @@
 import { WebSocket, WebSocketServer } from "ws";
 import { wsArcjet } from "../config/arcjet.js";
-import { MAX_PAYLOAD_SIZE, PING_PONG_INTERVAL } from "../constants/ws.js";
+import { MAX_PAYLOAD_SIZE, PING_PONG_INTERVAL } from "../constants/ws.ts";
 
 const matchSubscribers = new Map();
 
