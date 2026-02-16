@@ -68,7 +68,7 @@ Plans:
 
 Plans:
 - [x] 04-01: Convert Zod validation schemas to TypeScript
-- [ ] 04-02: Convert match routes to TypeScript
+- [x] 04-02: Convert match routes to TypeScript
 - [ ] 04-03: Convert commentary routes to TypeScript
 
 ### Phase 5: WebSocket & Real-time
