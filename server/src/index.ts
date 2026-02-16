@@ -4,7 +4,7 @@ import { securityMiddleware } from "./config/arcjet.js";
 import "./config/env.js"; // Must be imported first to load env vars
 import { commentaryRouter } from "./routes/commentary.js";
 import { matchesRouter } from "./routes/matches.js";
-import { attachWebSocketServer } from "./ws/server.js";
+import { attachWebSocketServer, type BroadcastFunctions } from "./ws/server.js";
 
 const PORT: number = Number(process.env.PORT || 8000);
 const HOST: string = process.env.HOST || "0.0.0.0";
@@ -23,12 +23,11 @@ app.use(securityMiddleware());
 app.use("/matches", matchesRouter);
 app.use("/matches/:id/commentary", commentaryRouter);
 
-const { broadcastMatchCreated, broadcastCommentary } =
+const { broadcastMatchCreated, broadcastCommentary }: BroadcastFunctions =
   attachWebSocketServer(server);
 
-// TODO: Type these properly after Phase 4 when routes are converted to TypeScript
-app.locals.broadcastMatchCreated = broadcastMatchCreated as (matchData: any) => void;
-app.locals.broadcastCommentary = broadcastCommentary as (commentaryData: any) => void;
+app.locals.broadcastMatchCreated = broadcastMatchCreated;
+app.locals.broadcastCommentary = broadcastCommentary;
 
 server.listen(PORT, HOST, () => {
   const baseUrl =
