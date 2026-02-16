@@ -4,6 +4,7 @@ import { MAX_PAYLOAD_SIZE, PING_PONG_INTERVAL } from "../constants/ws.js";
 import type { Match, Commentary } from "../db/db.js";
 import type { Server } from "http";
 import type { IncomingMessage } from "http";
+import type { ClientMessage, ServerMessage } from "./types.js";
 
 // Extended WebSocket interface for custom properties
 interface ExtendedWebSocket extends WebSocket {
@@ -45,10 +46,7 @@ function cleanupSubscriptions(socket: ExtendedWebSocket): void {
   }
 }
 
-function broadcastToMatch(
-  matchId: number,
-  payload: Record<string, unknown>,
-): void {
+function broadcastToMatch(matchId: number, payload: ServerMessage): void {
   const subscribers = matchSubscribers.get(matchId);
 
   if (!subscribers || subscribers.size === 0) return;
@@ -61,27 +59,31 @@ function broadcastToMatch(
   }
 }
 
-function sendJson(socket: ExtendedWebSocket, payload: Record<string, unknown>): void {
+function sendJson(socket: ExtendedWebSocket, payload: ServerMessage): void {
   if (!isOpen(socket)) return;
 
   socket.send(JSON.stringify(payload));
 }
 
-function broadcastToAll(
-  wss: WebSocketServer,
-  payload: Record<string, unknown>,
-): void {
+function broadcastToAll(wss: WebSocketServer, payload: ServerMessage): void {
   for (const client of wss.clients) {
     const ws = client as ExtendedWebSocket;
     sendJson(ws, payload);
   }
 }
 
-// Type for client messages
-type ClientMessage =
-  | { type: "subscribe"; matchId: number }
-  | { type: "unsubscribe"; matchId: number }
-  | { type: string; matchId?: number };
+// Type guard for client messages
+function isClientMessage(msg: unknown): msg is ClientMessage {
+  if (typeof msg !== "object" || msg === null) return false;
+
+  const message = msg as Record<string, unknown>;
+
+  if (message.type !== "subscribe" && message.type !== "unsubscribe") {
+    return false;
+  }
+
+  return typeof message.matchId === "number" && Number.isInteger(message.matchId);
+}
 
 function handleMessage(socket: ExtendedWebSocket, data: Buffer): void {
   let message: unknown;
@@ -93,19 +95,22 @@ function handleMessage(socket: ExtendedWebSocket, data: Buffer): void {
     return;
   }
 
-  const msg = message as ClientMessage;
-
-  if (msg?.type === "subscribe" && typeof msg?.matchId === "number" && Number.isInteger(msg.matchId)) {
-    subscribe(msg.matchId, socket);
-    socket.subscriptions.add(msg.matchId);
-    sendJson(socket, { type: "subscribed", matchId: msg.matchId });
+  if (!isClientMessage(message)) {
+    sendJson(socket, { type: "error", message: "Invalid message format" });
     return;
   }
 
-  if (msg?.type === "unsubscribe" && typeof msg?.matchId === "number" && Number.isInteger(msg.matchId)) {
-    unsubscribe(msg.matchId, socket);
-    socket.subscriptions.delete(msg.matchId);
-    sendJson(socket, { type: "unsubscribed", matchId: msg.matchId });
+  if (message.type === "subscribe") {
+    subscribe(message.matchId, socket);
+    socket.subscriptions.add(message.matchId);
+    sendJson(socket, { type: "subscribed", matchId: message.matchId });
+    return;
+  }
+
+  if (message.type === "unsubscribe") {
+    unsubscribe(message.matchId, socket);
+    socket.subscriptions.delete(message.matchId);
+    sendJson(socket, { type: "unsubscribed", matchId: message.matchId });
     return;
   }
 }
