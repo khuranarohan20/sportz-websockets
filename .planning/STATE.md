@@ -11,17 +11,17 @@ See: .planning/PROJECT.md (updated 2025-02-15)
 
 Phase: 3 of 7 (Core Application Types)
 Plan: 2 of 3 in current phase
-Status: Ready to start
-Last activity: 2026-02-16 — Completed Phase 3 Plan 1 (Express App Setup)
+Status: Complete
+Last activity: 2026-02-16 — Completed Phase 3 Plan 2 (Configuration & Environment)
 
-Progress: ██████████ 31%
+Progress: ██████████ 38%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 1 min
-- Total execution time: 0.12 hours
+- Total execution time: 0.13 hours
 
 **By Phase:**
 
@@ -29,10 +29,10 @@ Progress: ██████████ 31%
 |-------|-------|-------|----------|
 | 01-typescript-foundation | 3 | 1 min | 1 min |
 | 02-database-schema-types | 3 | 1 min | 1 min |
-| 03-core-application-types | 1 | 1 min | 1 min |
+| 03-core-application-types | 2 | 2 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min (02-01), 1 min (02-02), 1 min (02-03), 1 min (03-01)
+- Last 5 plans: 1 min (02-01), 1 min (02-02), 1 min (02-03), 1 min (03-01), 1 min (03-02)
 - Trend: Stable (all plans completed quickly)
 
 *Updated after each plan completion*
@@ -61,8 +61,10 @@ Recent decisions affecting current work:
 | 2 | Use drizzle() without explicit generic | Pool type constraint error when using drizzle<Pool>(pool), inference works identically |
 | 2 | Drizzle Kit automatically reads TypeScript schemas | No configuration needed beyond updating schema path to .ts |
 | 3 | Add allowJs: true to tsconfig.json | Supports incremental TypeScript migration by allowing .js imports |
-| 3 | Update all imports to .ts extensions ahead of time | Avoids revisiting files multiple times during migration |
+| 3 | Use .js extensions in import paths for TypeScript files | TypeScript ES modules require .js extensions (not .ts) in import paths |
 | 3 | Use temporary any types for broadcast functions | Will be properly typed after Phase 4 when routes are converted |
+| 3 | Let TypeScript infer ArcjetNode type from arcjet() function | @arcjet/node doesn't export ArcjetClient type explicitly, inference works correctly |
+| 3 | Express middleware must return void, not Response objects | Refactored middleware to call res.status().json() then return void |
 
 ### Deferred Issues
 
@@ -79,5 +81,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed Phase 3 Plan 1 (Express App Setup) - Ready for Phase 3 Plan 2: Configuration and Environment Handling
+Stopped at: Completed Phase 3 Plan 2 (Configuration & Environment) - Ready for Phase 3 Plan 3: Utility Functions and Helpers
 Resume file: None
