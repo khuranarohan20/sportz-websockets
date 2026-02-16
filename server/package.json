@@ -30,13 +30,14 @@
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^25.2.3",
+    "@types/pg": "^8.16.0",
     "@types/ws": "^8.18.1",
-    "autocannon": "^8.0.0",
-    "drizzle-kit": "^0.31.9",
-    "tsx": "^4.21.0",
-    "typescript": "^5.9.3",
     "@typescript-eslint/eslint-plugin": "^8.55.0",
     "@typescript-eslint/parser": "^8.55.0",
-    "eslint": "^9.39.2"
+    "autocannon": "^8.0.0",
+    "drizzle-kit": "^0.31.9",
+    "eslint": "^9.39.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }

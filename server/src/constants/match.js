@@ -1,1 +1,0 @@
-export const MAX_MATCH_QUERY_LIMIT = 100;
