@@ -86,7 +86,15 @@ commentaryRouter.post("/", async (req: Request, res: Response): Promise<void> =>
       .insert(commentary)
       .values({
         matchId,
-        ...parsedBody.data,
+        minute: parsedBody.data.minute,
+        sequence: parsedBody.data.sequence ?? 0,
+        period: parsedBody.data.period ?? "",
+        eventType: parsedBody.data.eventType ?? "",
+        actor: parsedBody.data.actor,
+        team: parsedBody.data.team,
+        message: parsedBody.data.message,
+        metadata: parsedBody.data.metadata,
+        tags: parsedBody.data.tags,
       })
       .returning();
 
