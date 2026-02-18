@@ -1,6 +1,6 @@
 import arcjet, { detectBot, shield, slidingWindow } from "@arcjet/node";
 import type { Request, Response, NextFunction } from "express";
-import { HTTP_ARCJECT_RULES, WS_ARCJECT_RULES } from "../constants/arcjet.ts";
+import { HTTP_ARCJECT_RULES, WS_ARCJECT_RULES } from "../constants/arcjet.js";
 
 const arcjetKey: string | undefined = process.env.ARCJET_KEY;
 const arcjetMode: "LIVE" | "DRY_RUN" =

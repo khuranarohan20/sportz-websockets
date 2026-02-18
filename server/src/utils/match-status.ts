@@ -1,4 +1,3 @@
-import { MATCH_STATUS } from "../validation/matches.js";
 
 // Temporary type - will use database type after Phase 4
 type MatchStatus = 'scheduled' | 'live' | 'finished';
@@ -16,14 +15,14 @@ export function getMatchStatus(
   }
 
   if (now < start) {
-    return MATCH_STATUS.SCHEDULED;
+    return 'scheduled' as MatchStatus;
   }
 
   if (now >= end) {
-    return MATCH_STATUS.FINISHED;
+    return 'finished' as MatchStatus;
   }
 
-  return MATCH_STATUS.LIVE;
+  return 'live' as MatchStatus;
 }
 
 export async function syncMatchStatus(
